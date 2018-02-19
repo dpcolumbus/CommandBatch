@@ -1,0 +1,71 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"	
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/jdbc 
+	    http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/context 
+	    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<!-- using in-memory store for batch meta-data --> 
+	
+	<context:property-placeholder location="file:./batch-sqlserver.properties"/>  
+	
+ 	 <bean id="jobRepository"
+		class="org.springframework.batch.core.repository.support.JobRepositoryFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="databaseType" value="SQLSERVER" />
+		<property name="tablePrefix" value="batch.BATCH_"></property>
+	</bean> 
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >  
+<property name="dataSource" ref="dataSource"></property>  
+</bean> 
+	
+	<!-- <bean id="jobRepository"
+		class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean"
+		lazy-init="true"  autowire-candidate="false" >
+       <property name="transactionManager" ref="transactionManager" />
+	</bean> -->
+	
+	<bean id="transactionManager"
+		class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
+	 
+	 <bean id="jobLauncher"
+		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+		<property name="jobRepository" ref="jobRepository" />
+	</bean>   
+	
+	
+	
+	  <bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${batch.jdbc.driver}" />
+		<property name="url" value="${batch.jdbc.url}" />
+		<property name="username" value="${batch.jdbc.user}" />
+		<property name="password" value="${batch.jdbc.password}" />
+	</bean>  
+	
+	 <!--  <bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+		<property name="url" value="jdbc:sqlserver://localhost;databaseName=batchrepo" />
+		<property name="username" value="la" />
+		<property name="password" value="la" />
+	</bean>   -->
+
+	
+	<!-- Create meta-tables. Here we are also invoking the initial-query.sql script  
+	<jdbc:initialize-database data-source="dataSource">
+	    <jdbc:script location="classpath:hsqldb/initial-query.sql" />
+		<jdbc:script location="classpath*:org/springframework/batch/core/schema-drop-hsqldb.sql" />
+		<jdbc:script location="classpath*:org/springframework/batch/core/schema-hsqldb.sql" />
+    </jdbc:initialize-database>-->  
+   
+	
+	
+   
+
+</beans>
