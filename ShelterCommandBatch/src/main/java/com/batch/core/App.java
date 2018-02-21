@@ -30,12 +30,13 @@ public class App {
 			};
 	         JobParameters jobParameters=null;
 	        
-	        
+	         System.currentTimeMillis() ;
 	             // get next long value 
 	             long value = (long)(Math.random() * 1000000);
 	         JobParametersBuilder jobBuilder= new JobParametersBuilder();
-	          jobBuilder.addString("status", "1");
-	          jobBuilder.addLong("run.id", value).toJobParameters();
+	          jobBuilder.addString("status", "Mig Completed");
+	          jobBuilder.addLong("time", value).toJobParameters();
+	          jobBuilder.addString("JobMethodName", "GetAllRecord_ACH_test");
 	          jobParameters =jobBuilder.toJobParameters();
 
 	        System.out.println("jobParameters:::"+jobParameters);
@@ -46,7 +47,7 @@ public class App {
 		JobLauncher jobLauncher = (JobLauncher) context.getBean("jobLauncher");
 		
     	
-    	Job job = (Job) context.getBean("ShelterJOB");
+    	Job job = (Job) context.getBean("GetAllRecord_ACH");
 
     	JobExecution jobExecution = jobLauncher.run(job, jobParameters);
         //JobExecution jobExecution = jobLauncherTestUtils.launchStep("step1");
