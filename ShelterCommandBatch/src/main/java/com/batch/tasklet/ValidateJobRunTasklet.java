@@ -94,11 +94,20 @@ public class ValidateJobRunTasklet implements Tasklet{
 			    	}
 		        }
 		    
-		 
+		// String flag="1";
         
          		if(flag.trim().equals("1") ) {
          			//System.err.println(" tasklet flag is if :::");
          			  stepContext.put("accountingmonth","'"+accountingmonth+"'");
+         		/*String	accountingmonth="201709";
+         			  SimpleJdbcCall jdbcCall1 =  new SimpleJdbcCall(jdbcTemplate).withProcedureName("GetAllRecord_ACH");
+       				Map<String, Object> inParamMap1 = new HashMap<String, Object>();
+       				inParamMap1.put("month", String.valueOf(accountingmonth));
+       				SqlParameterSource in1 = new MapSqlParameterSource(inParamMap1);
+
+
+       				Map<String, Object> storedProcResult1 = jdbcCall1.execute(in1);*/
+         			  
          			  if(status.trim().equals("1")) {
          				 stepContext.put("proc","GetAllRecord_ACH");
          			  }else {

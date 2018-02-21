@@ -16,6 +16,8 @@ public class ReportFieldSetMapper implements FieldSetMapper {
 	@Override
 	public Object mapFieldSet(FieldSet arg0) throws BindException {
 		// TODO Auto-generated method stub
+		
+		System.out.println("called Field Set mapper");
 		return null;
 	}
 	

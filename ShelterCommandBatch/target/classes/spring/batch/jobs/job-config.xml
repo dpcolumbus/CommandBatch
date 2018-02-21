@@ -32,7 +32,7 @@
 	   <import resource="../config/context-config.xml" />   
 			  
 	
-	  <batch:job id="ShelterJOB" incrementer="sampleIncrementer">
+	  <batch:job id="ShelterJOB">
 		 <batch:step id="validateJobRun" >
 				<tasklet ref="validateJobExecution">
 				 
@@ -95,7 +95,7 @@
 				<property name="fieldExtractor">
 					<bean
 						class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
-						<property name="names" value="result" />
+						<property name="names" value="FinalRow" />
 					</bean>
 				</property>
 			</bean>

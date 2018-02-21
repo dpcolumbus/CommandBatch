@@ -5,17 +5,17 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-public class ResultRowMapper implements RowMapper<Result> {
+public class ResultRowMapper implements RowMapper<FinalRow> {
 
 	@Override
-	public Result mapRow(ResultSet rs, int rowNum) throws SQLException {
+	public FinalRow mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-		Result user = new Result();
+		FinalRow finalRow = new FinalRow();
 
-		user.setResult(rs.getString("result"));
+		finalRow.setFinalRow(rs.getString("FinalRow"));
 		
 
-		return user;
+		return finalRow;
 	}
 
 }
