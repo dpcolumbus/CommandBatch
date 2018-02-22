@@ -30,10 +30,7 @@
 	  <context:component-scan base-package="com.batch.tasklet" />   
 	    
 	   <import resource="../config/context-config.xml" />   
-			  
-	
-	 
-	
+			
 	 <batch:job id="Hello">
 	<batch:step id="step1">
 		<batch:tasklet ref="helloWorldTasklet">
@@ -43,20 +40,20 @@
 	
 	</batch:job> 
 	
-	 <batch:job id="GetAllRecord_ACH" incrementer="sampleIncrementer">
-		 <batch:step id="checkIsProcessed" >
+	 <batch:job id="GetAllRecord_ACH">
+		 <batch:step id="CheckIsProcessed" >
 				<tasklet ref="checkAccountingMonthNIsProcessed">
 				 
 			</tasklet>	
 		<batch:end on="StopJobExecution"></batch:end>
-		<batch:next on="COMPLETED" to="processACHDBData"></batch:next>	
+		<batch:next on="COMPLETED" to="ProcessACH"></batch:next>	
 		<batch:listeners>
 			<batch:listener ref="stepListener">				
 			
 			</batch:listener>
 		</batch:listeners>
 		</batch:step>
-			 <batch:step id="processACHDBData">
+			 <batch:step id="ProcessACH">
 				<batch:tasklet>
 					<batch:chunk reader="dbItemReader" writer="flatFileItemWriter" commit-interval="10" >
 					

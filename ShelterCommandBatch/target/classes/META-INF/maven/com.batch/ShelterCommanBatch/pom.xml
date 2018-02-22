@@ -50,16 +50,7 @@
 		<artifactId>spring-jdbc</artifactId>
 		<version>${spring.jdbc.version}</version>		
    </dependency>
-     <dependency>
-		<groupId>commons-dbcp</groupId>
-		<artifactId>commons-dbcp</artifactId>
-		<version>${commons.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-oxm</artifactId>
-		<version>${spring.oxm.version}</version>
-	</dependency>
+    
    <dependency>     
        <groupId>junit</groupId>
        <artifactId>junit</artifactId>
@@ -89,13 +80,13 @@
 	</goals>
 	<configuration>
 		<outputDirectory>
-			${project.build.directory}/dependency-jars/
+			${project.build.directory}/dependency-jars
 		</outputDirectory>
 	</configuration>
   </execution>
 </executions>
   </plugin>
-   
+    
     </plugins>
   </build>
   
