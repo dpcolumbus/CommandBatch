@@ -28,6 +28,7 @@ import org.springframework.jdbc.core.SqlReturnResultSet;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.util.StringUtils;
 
 
 
@@ -36,11 +37,10 @@ public class ValidateJobRunTasklet implements Tasklet{
 	
 	@Autowired
 	JdbcTemplate jdbcTemplate;
-	
-	@Override
-	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-	
-		
+
+	public RepeatStatus execute(StepContribution arg0, ChunkContext chunkContext) throws Exception {
+		// TODO Auto-generated method stub
+
 		ExecutionContext stepContext = chunkContext.getStepContext().getStepExecution().getJobExecution().getExecutionContext();
 		String status= (String) chunkContext.getStepContext().getJobParameters().get("status");
 		
@@ -70,10 +70,10 @@ public class ValidateJobRunTasklet implements Tasklet{
 			      }
 			      for (String res : resultArr) {
 			    	    String[] result = res.split("=");
-			    	    if(!result[0].contains("Approved"))
+			    	    if(result.length>1 && result[0]!=null && !StringUtils.isEmpty(result[1]) )
 			    	    	resultMap.put(result[0], result[1]);
 			    	   
-			    	}
+			    		}
 
 			    	for (String resultKey : resultMap.keySet()) {
 			    		if(resultKey.trim().equals("SSISAccountingMonth")) {
@@ -87,12 +87,12 @@ public class ValidateJobRunTasklet implements Tasklet{
 			    		}
 			    	    
 			    	}
+			    	
+			    
 		        }
 		    
-		 
-        
          			try {
-         			  if(isProcessed.trim().equals("False")) {  
+         			  if(isProcessed.trim().equals("True")) {  
          				 stepContext.put("accountingmonth",accountingmonth);  
          				String jobName= (String) chunkContext.getStepContext().getJobParameters().get("JobMethodName");
          				 stepContext.put("jobMethodName",jobName);
@@ -106,6 +106,8 @@ public class ValidateJobRunTasklet implements Tasklet{
        
 		return RepeatStatus.FINISHED;
 	}
+	
+
 
 	
 	

@@ -15,34 +15,33 @@ import org.springframework.util.StringUtils;
 
 public class StepListener implements StepExecutionListener  {
 
-	@Override
+	
+	
 	public void beforeStep(StepExecution stepExecution) {
-		// TODO Auto-generated method stub
-		//System.err.println("beforeJob"+jobExecution.getJobParameters().toString());
-				String JobMethodName = null;
-				String status = null;
-				if(stepExecution.getJobParameters()!=null && 
-					stepExecution.getJobParameters().getString("status") !=null && 
-					stepExecution.getJobParameters().getString("JobMethodName")!=null ) {
-					
-					status=stepExecution.getJobParameters().getString("status").toString();
-					JobMethodName=stepExecution.getJobParameters().getString("JobMethodName").toString();
-				}
-				
-				if(StringUtils.isEmpty(status) && StringUtils.isEmpty(JobMethodName)) {				
-					stepExecution.setExitStatus(new ExitStatus("Missing required Parameters JobMethodName and Status"));
-					stepExecution.setTerminateOnly();
-				
-				}
+		String JobMethodName = null;
+		String status = null;
+		if(stepExecution.getJobParameters()!=null && 
+			stepExecution.getJobParameters().getString("status") !=null && 
+			stepExecution.getJobParameters().getString("JobMethodName")!=null ) {
+			
+			status=stepExecution.getJobParameters().getString("status").toString();
+			JobMethodName=stepExecution.getJobParameters().getString("JobMethodName").toString();
+		}
+		
+		if(StringUtils.isEmpty(status) && StringUtils.isEmpty(JobMethodName)) {				
+			stepExecution.setExitStatus(new ExitStatus("Missing required Parameters JobMethodName and Status"));
+			stepExecution.setTerminateOnly();
+		
+		}
+
 		
 	}
-
-	@Override
-	public ExitStatus afterStep(StepExecution stepExecution) {
-		
-		return stepExecution.getExitStatus();
-		
-		
+	
+	
+	
+	public ExitStatus afterStep(StepExecution arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

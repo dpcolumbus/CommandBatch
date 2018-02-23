@@ -26,7 +26,7 @@ public class App {
 		
 		String[] springConfig  = 
 			{	
-					"spring/batch/jobs/job-config.xml" 
+						"spring/batch/jobs/job-config.xml" 
 			};
 	         JobParameters jobParameters=null;
 	        
@@ -36,7 +36,7 @@ public class App {
 	         JobParametersBuilder jobBuilder= new JobParametersBuilder();
 	          jobBuilder.addString("status", "Mig Completed");
 	          jobBuilder.addLong("time", value).toJobParameters();
-	          jobBuilder.addString("JobMethodName", "GetAllRecord_ACH_test");
+	          jobBuilder.addString("JobMethodName", "GetAllRecord_ACH");
 	          jobParameters =jobBuilder.toJobParameters();
 
 	        System.out.println("jobParameters:::"+jobParameters);
